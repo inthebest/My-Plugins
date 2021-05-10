@@ -6,15 +6,13 @@
 new const iChatTag[] = "^4forum.csd :";
 #define ADMIN_GAG    ADMIN_RESERVATION
 
+#define DEFAULTGAG_TIME   120    // Gag süresi boş bırakılırsa atılacak default süre. * If Gag time is left blank, the default time for Gag throw.
+
 enum _:intenum {
 	iGagTime[MAX_PLAYERS+1],
 	iPickPlayer[MAX_PLAYERS+1]
 };
 new g_int[intenum];
-
-enum (+= 1337){
-	TASK_GAG = 1337
-}
 
 public plugin_init(){
 	register_plugin("[NVAULT] Gelişmiş Gag Sistemi", "0.1", "` BesTCore;");
@@ -105,11 +103,7 @@ public clcmd_say(const id){
 			client_print_color(id, id, "%s ^3Oyuncu ismini bos birakamazsiniz.", iChatTag);
 			return PLUGIN_HANDLED;
 		}
-		else if(iTime[0] == EOS){
-			client_print_color(id, id, "%s ^3Gag suresini bos birakamazsiniz.", iChatTag);
-			return PLUGIN_HANDLED;
-		}
-		GagThePlayer(id, pPlayer, iTimes);
+		GagThePlayer(id, pPlayer, iTime[0] == EOS ? DEFAULTGAG_TIME:iTimes);
 		return PLUGIN_HANDLED;
 	}
 	if(equal(szTitle, "/ungag") || equal(szTitle, "!ungag") || equal(szTitle, ".ungag")){
@@ -122,7 +116,7 @@ public clcmd_say(const id){
 			return PLUGIN_HANDLED;
 		}
 		else if(g_int[iGagTime][pPlayer] > 0){
-			remove_task(pPlayer + TASK_GAG);
+			remove_task(pPlayer);
 			g_int[iGagTime][pPlayer] = 0;
 			client_print_color(0, 0, "^1%n ^3adli admin^1 %n^3 adli oyuncunun gagini kaldirdi.", id, pPlayer);
 			return PLUGIN_HANDLED;
@@ -152,12 +146,8 @@ public clcmd_gag(const id){
 		client_print_color(id, id, "%s ^3Oyuncu ismini bos birakamazsiniz.", iChatTag);
 		return PLUGIN_HANDLED;
 	}
-	else if(iArg[0] == EOS){
-		client_print_color(id, id, "%s ^3Gag suresini bos birakamazsiniz.", iChatTag);
-		return PLUGIN_HANDLED;
-	}
 
-	GagThePlayer(id, pPlayer, iTime);
+	GagThePlayer(id, pPlayer, iArg[0] == EOS ? DEFAULTGAG_TIME:iTime);
 	return PLUGIN_HANDLED;
 }
 /******************************* Oyuncunun konsoldan gagini kaldirma *********************************/
@@ -177,7 +167,7 @@ public clcmd_ungag(const id){
 		return PLUGIN_HANDLED;
 	}
 	if(g_int[iGagTime][pPlayer] > 0){
-		remove_task(pPlayer + TASK_GAG);
+		remove_task(pPlayer);
 		g_int[iGagTime][pPlayer] = 0;
 		client_print_color(0, 0, "^1%n ^3adli admin^1 %n^3 adli oyuncunun gagini kaldirdi.", id, pPlayer);
 		return PLUGIN_HANDLED;
@@ -199,7 +189,7 @@ public GagThePlayer(const id, const pPlayer, iTime){
 	}
 	else {
 		g_int[iGagTime][pPlayer] = iTime;
-		set_task(1.0, "CountdownGag", pPlayer + TASK_GAG);
+		set_task(1.0, "CountdownGag", pPlayer, .flags = "b");
 		client_print_color(0, 0, "^1%n ^3adli admin^1 %n^3 adli oyuncuya ^4%i Saniye^3 gag atti.", id, pPlayer, iTime);
 		return PLUGIN_HANDLED;
 	}
@@ -219,22 +209,18 @@ bool:GagTermsOfUse(const id, const pPlayer, bool:blFlags, bool:blPlayer, bool:bl
 	}
 	return false;
 }
-public CountdownGag(Taskid){
-	new id;
-	id = Taskid - TASK_GAG;
-
+public CountdownGag(const id){
 	if(g_int[iGagTime][id] > 0){
 		g_int[iGagTime][id]--;
-		set_task(1.0, "CountdownGag", id + TASK_GAG);
 	}
 	else {
 		g_int[iGagTime][id] = 0;
-		remove_task(id + TASK_GAG);
+		remove_task(id);
 		client_print_color(0, 0, "^1%n ^3adli oyuncunun gag suresi bitti.", id);
 	}
 }
 public client_disconnected(id){
-	remove_task(id + TASK_GAG);
+	remove_task(id);
 	savevault(id);
 	g_int[iGagTime][id] = 0;
 	g_int[iPickPlayer][id] = 0;
@@ -255,7 +241,7 @@ public plugin_end(){
 public client_authorized(id, const authid[]){
 	g_int[iGagTime][id] = nvault_get(g_vault, fmt("%s-gagtime", authid));
 	if(g_int[iGagTime][id] > 0){
-		set_task(1.0, "CountdownGag", id + TASK_GAG);
+		set_task(1.0, "CountdownGag", id, .flags = "b");
 	}
 }
 public savevault(id){
