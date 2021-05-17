@@ -1,0 +1,16 @@
+[en]
+ONE_USE = %s ^3Bu ozelligi bu round kullandin.
+
+BUY_ITEM = %s ^3Basarili bir sekilde^4 %s^3 satin aldiniz.
+
+INSUFFICIENT_COST = %s ^3Yetersiz miktar.
+
+GODMODE_CLOSE = %s ^3Godmode ozelliginin suresi sona erdi.
+
+GIVE_HEGRENADE_CLOSE = %s^3 10 saniyede bir bomba ozelliginin suresi sona erdi.
+
+GIVE_HEALTH_CLOSE = %s^3 10 saniyede bir bomba ozelliginin suresi sona erdi.
+
+UNLIMITED_AMMO_CLOSE = %s^3 Sinirsiz mermi ozelliginin suresi sona erdi.
+
+INVISIBLE_CLOSE = "%s ^3Gorunmezlik ozelliginin suresi sona erdi.
