@@ -1,0 +1,39 @@
+[en]
+GAG_UNAUTHORIZED = %s ^3You are not authorized to use this command.
+
+GAG_PLAYER_UNSELECTED = %s ^3You cannot gag without selecting the player.
+GAG_PLAYERNAME_EMPTY = %s ^3You cannot leave the player name blank.
+
+GAG_PLAYER_NOGAG = %s ^3The specified player does not have a gag.
+GAG_ALREADY_ACTIVE = %s ^3The designated player already has a gag.
+
+GAG_PLAYER_UNGAG = %s ^1%n ^3admin removed the gag of ^1%n.
+GAG_PLAYER_GAG = %s ^1%n ^3admin gagged ^1%n ^3at ^4%i ^3seconds.
+
+GAG_TIME_IS_SMALL = %s ^3You must enter the gag time greater than 0.
+
+GAG_NOPLAYER = %s ^3No player found to gag.
+GAG_PLAYER_IMMUNITY = %s ^3The picked player has immunity.
+
+GAG_PLAYER_HAS_GAG = %s ^1%i ^3seconds until the gag is removed.
+GAG_TIMEEND = %s ^1%n's ^3gag time is over.
+
+[tr]
+GAG_UNAUTHORIZED = %s ^3Bu komutu kullanmak icin yetkin yok.
+
+GAG_PLAYER_UNSELECTED = %s ^3Oyuncuyu secmeden gag atamazsiniz.
+GAG_PLAYERNAME_EMPTY = %s ^3Oyuncu ismini bos birakamazsiniz.
+
+GAG_PLAYER_NOGAG = %s ^3Belirlenen oyuncunun gagi bulunmuyor.
+GAG_ALREADY_ACTIVE = %s ^3Belirlenen oyuncunun zaten gagi var.
+
+GAG_PLAYER_UNGAG = %s ^1%n ^3adli admin^1 %n^3 adli oyuncunun gagini kaldirdi.
+GAG_PLAYER_GAG = %s ^1%n ^3adli admin^1 %n^3 adli oyuncuya ^4%i Saniye^3 gag atti.
+
+GAG_TIME_IS_SMALL = %s ^3Gag suresini 0'dan buyuk girmelisiniz.
+
+GAG_NOPLAYER = %s ^3Gaglamak icin oyuncu bulunamadi.
+GAG_PLAYER_IMMUNITY = %s ^3Belirlenen oyuncunun dokunulmazligi mevcut.
+
+GAG_PLAYER_HAS_GAG = %s ^3Gaginin kaldirilmasina^4 %i Saniye^3 kaldi.
+GAG_TIMEEND = %s ^1%n ^3adli oyuncunun gag suresi bitti.
